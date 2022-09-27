@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog clock</title>
+    <style>
+        body {
+            /* position: relative; */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .clock {
+            width: 400px;
+            height: 400px;
+            border: 2px solid;
+            position: relative;
+            /* border-radius: ; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-image: linear-gradient(pink 20%, aquamarine, silver);
+        }
+        .clock__arrow {
+           border-radius: 10px;
+           position: absolute;
+           background-image: linear-gradient( cadetblue 30%, silver);
+           /* transition: transform 1s linear; */
+        }
+        .arrow_h {
+            height: 100px;
+            width: 20px;
+            top: calc(50% - 100px + 10px);
+            left: calc(50% - 10px);
+            /* animation: round 60s linear infinite; */
+            transform-origin: center 90px;
+        }
+        .arrow_m {
+            height: 140px;
+            width: 12px;
+            top: calc(50% - 140px + 6px);
+            transform-origin: center 134px;
+            /* animation: round 20s linear infinite; */
+        }
+        .arrow_s {
+            height: 180px;
+            width: 8px;
+            top: calc(50% - 180px + 4px);
+            transform-origin: center 176px;
+            /* animation: round 5s linear infinite; */
+        }
+        @keyframes round {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .clock__nail {
+            width: 4px;
+            height: 4px;
+            background-color: #000;
+            border-radius: 50%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        position: static;
+        position: relative; - сдвиг элемента относительно своего местоположения
+        position: fixed; - сдвиг элемента относительно границ viewport 
+        position: absolute; - сдвиг элемента относительно границ ближйшего родительского тега с position (не static)
+
+    -->
+    <div class="clock">
+        <!-- .clock__arrow.arrow_*3 -->
+        <div class="clock__arrow arrow_h"></div>
+        <div class="clock__arrow arrow_m"></div>
+        <div class="clock__arrow arrow_s"></div>
+        <div class="clock__nail"></div>
+    </div>
+    <script>
+        const hAr = document.querySelector(".arrow_h");
+        const mAr = document.querySelector(".arrow_m");
+        const sAr = document.querySelector(".arrow_s");
+        const now = new Date();
+        let h = now.getHours(), 
+            m = now.getMinutes(), 
+            s = now.getSeconds();
+        hAr.style.transform = `rotate(${360 / 12 * h}deg)`;
+        mAr.style.transform = `rotate(${360 / 60 * m}deg)`;
+        sAr.style.transform = `rotate(${360 / 60 * s}deg)`;
+        setInterval(function() {
+            const now = new Date();
+            let h = now.getHours(), 
+                m = now.getMinutes(), 
+                s = now.getSeconds();
+            hAr.style.transform = `rotate(${360 / 12 * h}deg)`;
+            mAr.style.transform = `rotate(${360 / 60 * m}deg)`;
+            sAr.style.transform = `rotate(${360 / 60 * s}deg)`
+        }, 1000);
+    </script>
+</body>
+</html>
